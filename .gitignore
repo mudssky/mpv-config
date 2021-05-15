@@ -1,3 +1,6 @@
+
+watch_later/
+shaders_cache/
 # Logs
 logs
 *.log
