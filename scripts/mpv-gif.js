@@ -2,10 +2,12 @@
 // 用户可配置的选项
 var userOptions = {
     dir: mp.get_property('working-directory'),
-    // frameSize: 'iw/2:ih/2',
+    // frameSize: 'iw/2:i/2',
     frameSize: 'iw/3:ih/3',
     // fps: 15,
     fps: 8,
+    // 设置动图循环播放次数,0是无限循环播放
+    loop: 0,
 };
 // 从环境中获取的参数
 var envOptions = {
@@ -82,6 +84,8 @@ function geneRateAnimatedPic(picType, hasSubtitles) {
             "" + envOptions.startTime,
             '-to',
             "" + envOptions.endTime,
+            '-loop',
+            "" + userOptions.loop,
             '-vf',
             "fps=" + userOptions.fps + ",scale=" + userOptions.frameSize + "," + envOptions.currentSubFilter,
             envOptions.basename + "[" + envOptions.startTime.toFixed() + "-" + envOptions.endTime.toFixed() + "]" + picType,
@@ -98,6 +102,8 @@ function geneRateAnimatedPic(picType, hasSubtitles) {
             "" + envOptions.startTime,
             '-to',
             "" + envOptions.endTime,
+            '-loop',
+            "" + userOptions.loop,
             '-vf',
             "fps=" + userOptions.fps + ",scale=" + userOptions.frameSize,
             envOptions.basename + "[" + envOptions.startTime.toFixed() + "-" + envOptions.endTime.toFixed() + "]" + picType,
