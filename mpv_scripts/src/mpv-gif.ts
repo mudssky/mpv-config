@@ -7,6 +7,8 @@ const userOptions = {
   fps: 8,
   // 设置动图循环播放次数,0是无限循环播放
   loop: 0,
+  // 是否带声音
+  audio: false,
 }
 // 从环境中获取的参数
 const envOptions = {
@@ -16,18 +18,33 @@ const envOptions = {
   basename: '',
   currentSubFilter: '',
   tracksList: [],
+  audioCodec: '',
 }
 enum animatePicType {
   'webp' = '.webp',
   'gif' = '.gif',
   'png' = '.png',
 }
+
+// 检查时间参数，必须设置开始时间和结束时间，两个有一个是负数的情况，或者结束时间大于开始时间返回false
+function validateTime(): boolean {
+  if (
+    envOptions.startTime === -1 ||
+    envOptions.endTime === -1 ||
+    envOptions.startTime >= envOptions.endTime
+  ) {
+    mp.osd_message('Invalid start/end time. ')
+    return false
+  }
+  return true
+}
+
 function initEnvOptions() {
   envOptions.filename = mp.get_property('filename') || ''
   envOptions.basename = mp.get_property('filename/no-ext') || ''
   envOptions.tracksList = JSON.parse(mp.get_property('track-list') || '')
-  dump(userOptions)
-  dump(envOptions)
+  dump('userOption:', userOptions)
+  dump('envOptions', envOptions)
 }
 function setStartTime() {
   // mp.get_property_number 用number类型返回参数，这里是失败时返回-1，也可以设置回调函数
@@ -60,14 +77,30 @@ function getCurrentSub() {
     }
   }
 }
+// 获取当前音轨的编码类型，暂时不考虑外挂音轨的情况
+function getAudioType() {
+  // 检测到当前音轨为内置音轨时返回codec，反之不做处理
+  for (const index in envOptions.tracksList) {
+    let currentObj = envOptions.tracksList[index]
+    if (
+      currentObj['selected'] &&
+      currentObj['type'] === 'audio' &&
+      currentObj['external'] !== true
+    ) {
+      envOptions.audioCodec = currentObj['codec']
+      return currentObj['codec']
+    }
+  }
+  return ''
+}
+
 // 指定动图格式（png,webp,gif）和生成动图，可选择是否带字幕
 function geneRateAnimatedPic(picType: animatePicType, hasSubtitles: boolean) {
   // 如果不设置开始或结束时间，无法生成动图
 
   // envOptions.filename = mp.get_property('filename')
   // envOptions.basename = mp.get_property('filename/no-ext')
-  if (envOptions.startTime === -1 || envOptions.endTime === -1) {
-    mp.osd_message('Invalid start/end time. ')
+  if (!validateTime()) {
     return
   }
 
@@ -138,6 +171,117 @@ function geneRateAnimatedPic(picType: animatePicType, hasSubtitles: boolean) {
       }
     }
   )
+  if (userOptions.audio) {
+    cutAudio()
+  }
+}
+// 获取文件名的后缀，不包含'.'
+function getExt(filename: string) {
+  const splitIndex = filename.lastIndexOf('.')
+  const res = filename.substring(splitIndex + 1)
+  dump('res', res)
+  return res
+}
+// 添加剪切音频功能
+function cutAudio() {
+  // 检查时间是否有误
+  if (!validateTime()) {
+    return
+  }
+  const AudioType = getAudioType()
+  // 如果音频类型没有确定，那么就会用aac转码
+  let commands: Array<string>
+  if (AudioType) {
+    commands = [
+      'ffmpeg',
+      '-v',
+      'warning',
+      '-i',
+      `${envOptions.filename}`,
+      '-ss',
+      `${envOptions.startTime}`,
+      '-to',
+      `${envOptions.endTime}`,
+      '-vn',
+      '-acodec',
+      'copy',
+      `${envOptions.basename}.${AudioType}`,
+    ]
+  } else {
+    commands = [
+      'ffmpeg',
+      '-v',
+      'warning',
+      '-i',
+      `${envOptions.filename}`,
+      '-ss',
+      `${envOptions.startTime}`,
+      '-to',
+      `${envOptions.endTime}`,
+      '-vn',
+      `${envOptions.basename}.aac`,
+    ]
+  }
+  print(commands.join(' '))
+  mp.command_native_async(
+    {
+      name: 'subprocess',
+      // 视频回放进程结束后，不结束子进程
+      playback_only: false,
+      args: commands,
+      // 捕获过程输出到stdout的所有数据，并在过程结束后将其返回
+      capture_stdout: true,
+    },
+    function (success, result, err) {
+      if (success) {
+        mp.msg.info(`cut audio succeed`)
+      } else {
+        mp.msg.warn(`cut audio failed`)
+      }
+    }
+  )
+}
+
+function cutVideo() {
+  if (!validateTime()) {
+    return
+  }
+  const commands = [
+    'ffmpeg',
+    '-v',
+    'warning',
+    '-i',
+    `${envOptions.filename}`,
+    '-ss',
+    `${envOptions.startTime}`,
+    '-to',
+    `${envOptions.endTime}`,
+    '-c',
+    'copy',
+    `${
+      envOptions.basename
+    }[${envOptions.startTime.toFixed()}-${envOptions.endTime.toFixed()}].${getExt(
+      envOptions.filename
+    )}`,
+  ]
+  print(commands.join(' '))
+  mp.command_native_async(
+    {
+      name: 'subprocess',
+      // 视频回放进程结束后，不结束子进程
+      playback_only: false,
+      args: commands,
+      // 捕获过程输出到stdout的所有数据，并在过程结束后将其返回
+      capture_stdout: true,
+    },
+    function (success, result, err) {
+      if (success) {
+        mp.msg.info(`cut audio succeed`)
+      } else {
+        mp.msg.warn(`cut audio failed`)
+      }
+    }
+  )
 }
 
 function generateGif() {
@@ -158,6 +302,8 @@ mp.add_key_binding('Ctrl+g', 'generateGif', generateGif)
 mp.add_key_binding('Ctrl+G', 'generateGifWithSub', generateGifWithSub)
 mp.add_key_binding('Ctrl+w', 'generateWebp', generateWebp)
 mp.add_key_binding('Ctrl+W', 'generateWebpWithSub', generateWebpWithSub)
+mp.add_key_binding('Ctrl+a', 'cutAudio', cutAudio)
+mp.add_key_binding('Ctrl+v', 'cutVideo', cutVideo)
 
 mp.register_event('file-loaded', initEnvOptions)
 // mp.msg.info(userOptions.dir, userOptions.frameSize, userOptions.fps)
