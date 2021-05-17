@@ -10,6 +10,18 @@ const userOptions = {
   // 是否带声音
   audio: false,
 }
+// const userOptions = {
+//   dir: mp.get_property('working-directory'),
+//   // frameSize: 'iw/2:i/2',
+//   frameSize: 'iw/2:ih/2',
+//   // fps: 15,
+//   fps: 15,
+//   // 设置动图循环播放次数,0是无限循环播放
+//   loop: 0,
+//   // 是否带声音
+//   audio: false,
+// }
+
 // 从环境中获取的参数
 const envOptions = {
   startTime: -1,
@@ -166,8 +178,10 @@ function geneRateAnimatedPic(picType: animatePicType, hasSubtitles: boolean) {
     function (success, result, err) {
       if (success) {
         mp.msg.info(`generate ${picType}:${envOptions.filename} succeed`)
+        mp.osd_message(`generate ${picType}:${envOptions.filename} succeed`)
       } else {
         mp.msg.warn(`generate ${picType}:${envOptions.filename} failed`)
+        mp.osd_message(`generate ${picType}:${envOptions.filename} failed`)
       }
     }
   )
@@ -235,8 +249,10 @@ function cutAudio() {
     function (success, result, err) {
       if (success) {
         mp.msg.info(`cut audio succeed`)
+        mp.osd_message(`Cut Audio Succeed.`)
       } else {
         mp.msg.warn(`cut audio failed`)
+        mp.osd_message(`Cut Audio Failed.`)
       }
     }
   )
@@ -277,8 +293,10 @@ function cutVideo() {
     function (success, result, err) {
       if (success) {
         mp.msg.info(`cut video succeed`)
+        mp.osd_message(`Cut Video Succeed `)
       } else {
         mp.msg.warn(`cut video failed`)
+        mp.osd_message(`Cut Video failed `)
       }
     }
   )
