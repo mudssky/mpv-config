@@ -276,9 +276,9 @@ function cutVideo() {
     },
     function (success, result, err) {
       if (success) {
-        mp.msg.info(`cut audio succeed`)
+        mp.msg.info(`cut video succeed`)
       } else {
-        mp.msg.warn(`cut audio failed`)
+        mp.msg.warn(`cut video failed`)
       }
     }
   )
