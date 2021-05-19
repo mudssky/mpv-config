@@ -115,10 +115,10 @@ function geneRateAnimatedPic(picType, hasSubtitles) {
             'ffmpeg',
             '-v',
             'warning',
-            '-i',
-            "" + envOptions.filename,
             '-ss',
             "" + envOptions.startTime,
+            '-i',
+            "" + envOptions.filename,
             '-to',
             "" + envOptions.endTime,
             '-loop',
@@ -186,40 +186,23 @@ function cutAudio() {
         return;
     }
     var AudioType = getAudioType();
-    // 如果音频类型没有确定，那么就会用aac转码
+    // 用mka这种比较通用的容器
     var commands;
-    if (AudioType) {
-        commands = [
-            'ffmpeg',
-            '-v',
-            'warning',
-            '-i',
-            "" + envOptions.filename,
-            '-ss',
-            "" + envOptions.startTime,
-            '-to',
-            "" + envOptions.endTime,
-            '-vn',
-            '-acodec',
-            'copy',
-            envOptions.basename + "." + AudioType,
-        ];
-    }
-    else {
-        commands = [
-            'ffmpeg',
-            '-v',
-            'warning',
-            '-i',
-            "" + envOptions.filename,
-            '-ss',
-            "" + envOptions.startTime,
-            '-to',
-            "" + envOptions.endTime,
-            '-vn',
-            envOptions.basename + ".aac",
-        ];
-    }
+    commands = [
+        'ffmpeg',
+        '-v',
+        'warning',
+        '-i',
+        "" + envOptions.filename,
+        '-ss',
+        "" + envOptions.startTime,
+        '-to',
+        "" + envOptions.endTime,
+        '-vn',
+        '-acodec',
+        'copy',
+        envOptions.basename + ".mka",
+    ];
     print(commands.join(' '));
     mp.command_native_async({
         name: 'subprocess',
