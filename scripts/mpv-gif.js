@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 // 用户可配置的选项
 var userOptions = {
     dir: mp.get_property('working-directory'),
@@ -194,6 +195,7 @@ function cutAudio() {
         'warning',
         '-i',
         "" + envOptions.filename,
+        '-accurate_seek',
         '-ss',
         "" + envOptions.startTime,
         '-to',
@@ -232,6 +234,7 @@ function cutVideo() {
         'warning',
         '-i',
         "" + envOptions.filename,
+        '-accurate_seek',
         '-ss',
         "" + envOptions.startTime,
         '-to',
@@ -280,4 +283,3 @@ mp.add_key_binding('Ctrl+W', 'generateWebpWithSub', generateWebpWithSub);
 mp.add_key_binding('Ctrl+a', 'cutAudio', cutAudio);
 mp.add_key_binding('Ctrl+v', 'cutVideo', cutVideo);
 mp.register_event('file-loaded', initEnvOptions);
-// mp.msg.info(userOptions.dir, userOptions.frameSize, userOptions.fps)

@@ -312,3 +312,4 @@ mp.add_key_binding('Ctrl+v', 'cutVideo', cutVideo)
 
 mp.register_event('file-loaded', initEnvOptions)
 // mp.msg.info(userOptions.dir, userOptions.frameSize, userOptions.fps)
+export {}
