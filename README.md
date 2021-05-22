@@ -1,6 +1,14 @@
 # mpv-config
+- [mpv-config](#mpv-config)
+  - [mpv-gif.js](#mpv-gifjs)
+    - [运行环境需求](#运行环境需求)
+    - [feature](#feature)
+    - [配置说明](#配置说明)
+    - [快捷键说明](#快捷键说明)
+  - [switch-audio-channel.js](#switch-audio-channeljs)
+    - [feature](#feature-1)
+    - [快捷键说明](#快捷键说明-1)
 
-[toc]
 
 
 
@@ -15,6 +23,12 @@
 然后就可以用快捷键生成这段时间的gif，视频或是音频。
 
 个人更推荐使用webp动图，如果你上传的平台支持的话，webp动图体积更小画质也更好
+
+
+
+### 运行环境需求
+
+需要ffmepg的命令行工具，并且要放在环境变量里。
 
 ### feature
 
