@@ -1,11 +1,20 @@
 "use strict";
 ;
 (function (mp) {
+    var envOptions = {
+        switchFRtoFL: false,
+    };
     function switchFRtoFL() {
-        var afstr = 'lavfi=[pan=stereo|c0=c1|c1=c0]';
-        mp.set_property('af', afstr);
-        mp.osd_message('swith FR and LR.');
-        mp.msg.debug(afstr);
+        if (!envOptions.switchFRtoFL) {
+            var afstr = 'lavfi=[pan=stereo|c0=c1|c1=c0]';
+            mp.set_property('af', afstr);
+            envOptions.switchFRtoFL = true;
+            mp.osd_message('swith FR and LR.');
+            mp.msg.debug(afstr);
+        }
+        else {
+            resetAF();
+        }
     }
     function switchAllFR() {
         var afstr = 'lavfi=[pan=stereo|c0=c1|c1=c1]';
@@ -28,6 +37,7 @@
     function resetAF() {
         var afstr = 'lavfi=[pan=stereo|c0=c0|c1=c1]';
         mp.set_property('af', afstr);
+        envOptions.switchFRtoFL = false;
         mp.osd_message('reset AF.');
         mp.msg.debug(afstr);
     }

@@ -5,13 +5,20 @@
   //   switchFRtoFL: false,
   //   mixAll: false,
   // }
+  const envOptions = {
+    switchFRtoFL: false,
+  }
 
   function switchFRtoFL() {
-    const afstr = 'lavfi=[pan=stereo|c0=c1|c1=c0]'
-    mp.set_property('af', afstr)
-    // envOptions.switchFRtoFL = true
-    mp.osd_message('swith FR and LR.')
-    mp.msg.debug(afstr)
+    if (!envOptions.switchFRtoFL) {
+      var afstr = 'lavfi=[pan=stereo|c0=c1|c1=c0]'
+      mp.set_property('af', afstr)
+      envOptions.switchFRtoFL = true
+      mp.osd_message('swith FR and LR.')
+      mp.msg.debug(afstr)
+    } else {
+      resetAF()
+    }
   }
 
   function switchAllFR() {
@@ -36,7 +43,7 @@
   function resetAF() {
     const afstr = 'lavfi=[pan=stereo|c0=c0|c1=c1]'
     mp.set_property('af', afstr)
-    // envOptions.mixAll=false
+    envOptions.switchFRtoFL = false
     mp.osd_message('reset AF.')
     mp.msg.debug(afstr)
   }
