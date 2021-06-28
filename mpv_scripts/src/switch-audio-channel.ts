@@ -65,5 +65,6 @@
   mp.add_key_binding('alt+shift+r', 'switchSingleFR:', switchSingleFR)
   mp.add_key_binding('alt+shift+l', 'switchSingleFL:', switchSingleFL)
   mp.add_key_binding('alt+a', 'mixAll', mixAll)
-  mp.add_key_binding('shift+alt+r', 'resetAF', resetAF)
+  mp.add_key_binding('shift+alt+i', 'resetAF', resetAF)
 })(mp)
+
