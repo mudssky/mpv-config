@@ -96,7 +96,7 @@ const userOptions = {
 * t toggle
 * l left
 * r right
-* R reset
+* I init
 
 | 键位        | 作用                   |
 | ----------- | ---------------------- |
@@ -106,4 +106,4 @@ const userOptions = {
 | alt+shift+l | 单左声道（右边静音）   |
 | alt+shift+r | 单右声道  （左边静音） |
 | alt+a       | 左右声道mix模式        |
-| shift+alt+r | 重置成立体声双声道     |
+| shift+alt+i | 重置成立体声双声道     |
