@@ -89,6 +89,7 @@
                 'warning',
                 '-ss',
                 "" + envOptions.startTime,
+                '-copyts',
                 '-i',
                 "" + envOptions.filename,
                 '-to',
@@ -97,6 +98,8 @@
                 "" + userOptions.loop,
                 '-vf',
                 "fps=" + userOptions.fps + ",scale=" + userOptions.frameSize + "," + envOptions.currentSubFilter,
+                '-ss',
+                "" + envOptions.startTime,
                 envOptions.basename + "[" + envOptions.startTime.toFixed() + "-" + envOptions.endTime.toFixed() + "]" + picType,
             ];
         }

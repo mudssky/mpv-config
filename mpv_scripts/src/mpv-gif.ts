@@ -130,6 +130,8 @@
         'warning',
         '-ss',
         `${envOptions.startTime}`,
+        // 拷贝时间戳，因为ffmpeg在seek之后会重置时间戳,也就是说后续的时间戳会从0开始
+        '-copyts',
         '-i',
         `${envOptions.filename}`,
         '-to',
@@ -138,6 +140,9 @@
         `${userOptions.loop}`,
         '-vf',
         `fps=${userOptions.fps},scale=${userOptions.frameSize},${envOptions.currentSubFilter}`,
+        // 重置字幕的时间戳，这样字幕会从截取视频的起始时间开始
+        '-ss',
+        `${envOptions.startTime}`,
         `${
           envOptions.basename
         }[${envOptions.startTime.toFixed()}-${envOptions.endTime.toFixed()}]${picType}`,
