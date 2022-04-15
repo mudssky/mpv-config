@@ -215,9 +215,9 @@
       'ffmpeg',
       '-v',
       'warning',
+      '-accurate_seek',
       '-i',
       `${envOptions.filename}`,
-      '-accurate_seek',
       '-ss',
       `${envOptions.startTime}`,
       '-to',
@@ -225,7 +225,9 @@
       '-vn',
       '-acodec',
       'copy',
-      `${envOptions.basename}.mka`,
+      `${
+        envOptions.basename
+      }[${envOptions.startTime.toFixed()}-${envOptions.endTime.toFixed()}].mka`,
     ]
 
     print(commands.join(' '))
