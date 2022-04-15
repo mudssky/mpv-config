@@ -1,5 +1,6 @@
 # mpv-config
 - [mpv-config](#mpv-config)
+- [使用方法](#使用方法)
 - [mpv-gif.js](#mpv-gifjs)
   - [运行环境需求](#运行环境需求)
   - [feature](#feature)
@@ -8,6 +9,8 @@
 - [switch-audio-channel.js](#switch-audio-channeljs)
   - [feature](#feature-1)
   - [快捷键说明](#快捷键说明-1)
+# 使用方法
+  在mpv目录下 创建portable_config文件夹，把仓库中的内容移入即可。
 
 # mpv-gif.js
 
