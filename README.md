@@ -10,7 +10,7 @@
   - [feature](#feature-1)
   - [快捷键说明](#快捷键说明-1)
 # 使用方法
-  在mpv目录下 创建portable_config文件夹，把仓库中的内容移入即可。
+  在mpv目录下 创建portable_config文件夹，把仓库中的内容移入即可。  
   修改src文件夹中的ts代码后,使用npm run build,就会调用tsc构建es5的代码到scripts文件夹
 
 
