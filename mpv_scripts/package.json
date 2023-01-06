@@ -11,5 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "@types/mpv-script": "^0.32.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.4"
   }
 }
