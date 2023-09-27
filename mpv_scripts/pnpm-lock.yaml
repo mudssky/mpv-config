@@ -1,0 +1,27 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+dependencies:
+  '@types/mpv-script':
+    specifier: ^0.32.1
+    version: 0.32.3
+
+devDependencies:
+  typescript:
+    specifier: ^4.9.4
+    version: 4.9.5
+
+packages:
+
+  /@types/mpv-script@0.32.3:
+    resolution: {integrity: sha512-09W6ppaUVk7LYPGMLE0mVD5UHLqngRBGp2sZXsGnL0l4dpZRZgDbbS4T1xUiQEzYdagZSQsuGA7lqAA3nP0FHw==}
+    dev: false
+
+  /typescript@4.9.5:
+    resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
+    dev: true
