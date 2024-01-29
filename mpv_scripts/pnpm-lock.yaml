@@ -6,22 +6,22 @@ settings:
 
 dependencies:
   '@types/mpv-script':
-    specifier: ^0.32.1
-    version: 0.32.3
+    specifier: ^0.32.6
+    version: 0.32.6
 
 devDependencies:
   typescript:
-    specifier: ^4.9.4
-    version: 4.9.5
+    specifier: ^5.3.3
+    version: 5.3.3
 
 packages:
 
-  /@types/mpv-script@0.32.3:
-    resolution: {integrity: sha512-09W6ppaUVk7LYPGMLE0mVD5UHLqngRBGp2sZXsGnL0l4dpZRZgDbbS4T1xUiQEzYdagZSQsuGA7lqAA3nP0FHw==}
+  /@types/mpv-script@0.32.6:
+    resolution: {integrity: sha512-Xgson7Q7f8zwGPhEPxiUGCmSNjh5XwNVwBZ3VZeg89pGWhUN89u10VRIWkzrixbOhY/TvD469eXHPpke79ai4Q==}
     dev: false
 
-  /typescript@4.9.5:
-    resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}
-    engines: {node: '>=4.2.0'}
+  /typescript@5.3.3:
+    resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==}
+    engines: {node: '>=14.17'}
     hasBin: true
     dev: true
