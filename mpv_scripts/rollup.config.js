@@ -17,9 +17,14 @@ const baseConfig = {
     commonjs(),
   ],
 }
-export default glob.globSync('src/*.ts').map((item) => {
-  return {
-    input: item,
-    ...baseConfig,
-  }
-})
+export default glob
+  .globSync('src/*.ts')
+  .filter((item) => {
+    return !item.includes('audio-playback')
+  })
+  .map((item) => {
+    return {
+      input: item,
+      ...baseConfig,
+    }
+  })

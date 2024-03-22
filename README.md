@@ -10,6 +10,7 @@
   - [switch-audio-channel.js](#switch-audio-channeljs)
     - [feature](#feature-1)
     - [快捷键说明](#快捷键说明-1)
+  - [audio-playback](#audio-playback)
 
 ## 使用方法
 
@@ -115,3 +116,10 @@ const userOptions = {
 | alt+shift+r | 单右声道  （左边静音） |
 | alt+a       | 左右声道mix模式        |
 | shift+alt+i | 重置成立体声双声道     |
+
+## audio-playback
+
+打开小于6分钟的视频，切换到循环播放。
+适合听歌和看短视频的时候使用。
+
+实际上不用也可以，因为L可以切换loop。用这个快捷键一般就够用了
