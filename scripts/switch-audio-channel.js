@@ -1,6 +1,10 @@
-"use strict";
-;
 (function (mp) {
+    // 切换声道用的插件，可以切换左右声道，
+    // 或者把两个声道都设为左声道或者右声道
+    // const envOptions = {
+    //   switchFRtoFL: false,
+    //   mixAll: false,
+    // }
     var envOptions = {
         switchFRtoFL: false,
     };
@@ -43,6 +47,7 @@
     function mixAll() {
         var afstr = 'lavfi=[pan=stereo|FL=FL+FR|FR=FL+FR]';
         mp.set_property('af', afstr);
+        // envOptions.mixAll = true
         mp.osd_message('change all channels to all');
         mp.msg.debug(afstr);
     }

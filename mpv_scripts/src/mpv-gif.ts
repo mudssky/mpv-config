@@ -1,3 +1,4 @@
+import { dumpWhenDebug } from './utils'
 ;(function (mp) {
   // 用户可配置的选项
   const userOptions = {
@@ -56,8 +57,7 @@
     envOptions.filename = mp.get_property('filename') || ''
     envOptions.basename = mp.get_property('filename/no-ext') || ''
     envOptions.tracksList = JSON.parse(mp.get_property('track-list') || '')
-    dump('userOption:', userOptions)
-    dump('envOptions', envOptions)
+    dumpWhenDebug({ userOptions, envOptions })
   }
   function setStartTime() {
     // mp.get_property_number 用number类型返回参数，这里是失败时返回-1，也可以设置回调函数
@@ -82,7 +82,7 @@
       if (currentObj['selected'] && currentObj['type'] === 'sub') {
         if (currentObj['external'] === true) {
           envOptions.currentSubFilter = `subtitles='${pathCorrect(
-            currentObj['external-filename']
+            currentObj['external-filename'],
           )}':si=0`
         } else {
           envOptions.currentSubFilter = `subtitles='${envOptions.filename}'`
@@ -171,7 +171,7 @@
     // const commands = `ffmpeg -v warning -i '${envOptions.filename}' -ss ${envOptions.startTime} -to ${envOptions.endTime} -vf "fps=${userOptions.fps},scale=${userOptions.frameSize}" '${envOptions.basename}${picType}' `
     // mp.msg.debug(commands)
     print(commands.join(' '))
-    // dump(commands)
+    // dumpWhen(commands)
     mp.command_native_async(
       {
         name: 'subprocess',
@@ -189,7 +189,7 @@
           mp.msg.warn(`generate ${picType}:${envOptions.filename} failed`)
           mp.osd_message(`generate ${picType}:${envOptions.filename} failed`)
         }
-      }
+      },
     )
     if (userOptions.audio) {
       cutAudio()
@@ -199,7 +199,7 @@
   function getExt(filename: string) {
     const splitIndex = filename.lastIndexOf('.')
     const res = filename.substring(splitIndex + 1)
-    dump('res', res)
+    dumpWhenDebug(res)
     return res
   }
   // 添加剪切音频功能
@@ -248,7 +248,7 @@
           mp.msg.warn(`cut audio failed`)
           mp.osd_message(`Cut Audio Failed.`)
         }
-      }
+      },
     )
   }
 
@@ -272,7 +272,7 @@
       `${
         envOptions.basename
       }[${envOptions.startTime.toFixed()}-${envOptions.endTime.toFixed()}].${getExt(
-        envOptions.filename
+        envOptions.filename,
       )}`,
     ]
     print(commands.join(' '))
@@ -293,7 +293,7 @@
           mp.msg.warn(`cut video failed`)
           mp.osd_message(`Cut Video failed `)
         }
-      }
+      },
     )
   }
 
