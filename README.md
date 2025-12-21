@@ -1,5 +1,14 @@
+# Archive
+
+本项目已迁移至 [powershellScripts](https://github.com/mudssky/powershellScripts) 仓库。
+`config\software\mpv`
+本仓库仅作归档使用，不再维护。后续更新请前往新仓库。
+
+---
+
 # mpv-config
 
+- [Archive](#archive)
 - [mpv-config](#mpv-config)
   - [使用方法](#使用方法)
   - [mpv-gif.js](#mpv-gifjs)
